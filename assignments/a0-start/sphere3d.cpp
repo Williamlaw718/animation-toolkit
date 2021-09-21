@@ -12,35 +12,28 @@ class Sphere3D : public atkui::Framework {
   virtual void setup(){
     currentPos = vec3(0,0,0);
     vel = 400.0f * vec3(1, 3, 4);
-    key = getchar();
+    //key = getchar();
 
   }
   virtual void scene() {
     setColor(vec3(0,1,0));
+    currentPos = currentPos + (vel * dt());
     drawSphere(vec3(currentPos), radius);
-    if(value == GLFW_KEY_SPACE){
-      keyUp(key, value);
-    }
 
-    if(value == GLFW_KEY_R){
-      keyUp(key, value);
-    }
   }
 
    void keyUp(int key, int mods) {
-
-
-
-     
     if (key == GLFW_KEY_SPACE ) {
       //std::cout << "Toggle camera controls " << cameraEnabled() << std::endl;
       //setCameraEnabled(!cameraEnabled());
-      currentPos = agl::randomUnitVector() * (vel * dt());
+      vel = 100.0f * agl::randomUnitVector();
+      vel[1] = 0;
       //drawSphere(currentPos, radius);
     }
 
     if(key == GLFW_KEY_R){
-      currentPos = vec3(0);
+      vel = vec3(0);
+      currentPos = vec3(0); 
       //drawSphere(currentPos, radius);
     }
   }

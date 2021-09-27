@@ -7,7 +7,8 @@ class ParticleCubic : public atkui::Framework {
   }
 
   void setup() {
-    currentPosition3 = vec3(0);
+    currentPosition3 = CD(0);
+    t = 0;
   }
 
   void scene() {
@@ -15,26 +16,28 @@ class ParticleCubic : public atkui::Framework {
     //drawSphere(vec3(250, 250, 0), 10);
     for(float i = 0; i < 1; i = i + step){
       setColor(vec3(0,1,0));
-      currentPosition = BezierCurve(i);
-      currentPosition2 = BezierCurve(i + step);
+      currentPosition = CD(i);
+      currentPosition2 = CD(i + step);
       drawLine(currentPosition,currentPosition2);
-      vel = BezierCurve(i);
-      currentPosition3 = currentPosition3 + vel;
+      vel = CD(i);
+      currentPosition3 = currentPosition + (vel * elapsedTime())/5.00f;
       drawSphere(currentPosition3,10);
       }
-      vel =  BezierCurve(0);
-      //currentPosition3 = currentPosition3 + vel;
-      //drawSphere(currentPosition3,10);
 
-    
     
       //currentPosition3 = currentPosition3 + elapsedTime();
       //drawSphere(currentPosition3,10);
   }
-
-  vec3 BezierCurve(float t){
-      value = ((1.0f-t) * (1.0f-t) * (1.0f - t) * B0) + (3.0f*t*(1.0f-t) * (1.0f-t) * B1) + ((3*t * 3 * t)*(1-t)*B2) + ((t*t*t)*B3);
-      return value;
+  
+  vec3 CD(float t){
+      //return (B0 * (1.0f - t) + B1 + t ) + (B1 * (1.0f - t) + B2 + t ) + (B2 * (1.0f - t) + B3 + t );
+      B10 = B0 * (1 - t) + B1 * t;
+      B11 = B1 * (1-t) + B2 * t;
+      B12 = B2 * (1-t) + B3 * t;
+      B20 = B10 * (1-t) + B11 * t;
+      B21 = B11 * (1-t) + B12 * t;
+      B30 = B20 * (1-t) + B21 * t;
+      return B30;
     }
 
   private:
@@ -46,8 +49,15 @@ class ParticleCubic : public atkui::Framework {
   vec3 B1 = vec3(150, 200, 0);
   vec3 B2 = vec3(250, 100, 0);
   vec3 B3 = vec3(300, 300, 0);
+  vec3 B10;
+  vec3 B11;
+  vec3 B12;
+  vec3 B20;
+  vec3 B21;
+  vec3 B30;
   float step = 1.0f/40.0f;
   vec3 vel;
+  int t;
 };
 
 int main(int argc, char** argv) {

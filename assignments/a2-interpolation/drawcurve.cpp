@@ -28,8 +28,8 @@ class DrawCubic : public atkui::Framework
        }
        else if (keyIsDown(GLFW_KEY_2) == true)
        {
-        currentPosition = BezierCurve(i);
-        currentPosition2 = BezierCurve(i + step);
+        currentPosition = CD(i);
+        currentPosition2 = CD(i + step);
         drawLine(currentPosition,currentPosition2);
        }
        
@@ -64,12 +64,19 @@ class DrawCubic : public atkui::Framework
   }*/
 
    vec3 BezierCurve(float t){
-      value = ((1.0f-t) * (1.0f-t) * (1.0f - t) * B0) + (3.0f*t*(1.0f-t) * (1.0f-t) * B1) + ((3*t * 3 * t)*(1-t)*B2) + ((t*t*t)*B3);
+      value = (((1.0f-t) * (1.0f-t) * (1.0f - t)) * B0) + (3.0f*t*((1.0f-t) * (1.0f-t)) * B1) + ((3* (t *t))*(1-t)*B2) + ((t*t*t)*B3);
       return value;
     }
 
     vec3 CD(float t){
-      return (B0 * (1.0f - t) + B1 + t ) + (B1 * (1.0f - t) + B2 + t ) + (B2 * (1.0f - t) + B3 + t );
+      //return (B0 * (1.0f - t) + B1 + t ) + (B1 * (1.0f - t) + B2 + t ) + (B2 * (1.0f - t) + B3 + t );
+      B10 = B0 * (1 - t) + B1 * t;
+      B11 = B1 * (1-t) + B2 * t;
+      B12 = B2 * (1-t) + B3 * t;
+      B20 = B10 * (1-t) + B11 * t;
+      B21 = B11 * (1-t) + B12 * t;
+      B30 = B20 * (1-t) + B21 * t;
+      return B30;
     }
 
  private:
@@ -77,6 +84,12 @@ class DrawCubic : public atkui::Framework
   vec3 B1 = vec3(150, 200, 0);
   vec3 B2 = vec3(250, 100, 0);
   vec3 B3 = vec3(300, 300, 0);
+  vec3 B10;
+  vec3 B11;
+  vec3 B12;
+  vec3 B20;
+  vec3 B21;
+  vec3 B30;
   vec3 vel = .1f * vec3(1, 3, 0);
   float iRate = .1;
   int g = 0; 

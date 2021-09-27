@@ -20,7 +20,7 @@ class Example : public atkui::Framework {
     setColor(vec3(0,1,0));
 
     // draw a sphere at center of screen
-    double radius = 100; 
+    double radius = 10; 
     drawSphere(currentPos, radius);
   }
   vec3 currentPos;

@@ -2,16 +2,13 @@
 
 Repository for animation demos and tools
 
-Here are the images and gifs associated with the program
-<img src='https://github.com/Williamlaw718/animation-toolkit/blob/main/assignments/a0-start/assignment00.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
-
-<img src='https://github.com/Williamlaw718/animation-toolkit/blob/main/assignments/a0-start/Screen%20Shot%202021-09-09%20at%202.56.30%20PM.png' title='Sphere2d ScreenShot' width='' alt='Video Walkthrough' />
-
 Helpful Links:
 
 * [CS317 course website](https://brynmawr-cs317-f21.github.io/website/)
 * [Assignment 00: Hello CS317](https://brynmawr-cs317-f21.github.io/website/asst00.html)
 * [Assignment 01: Hello Animation](https://brynmawr-cs317-f21.github.io/website/asst01-hello.html)
+* [Assignment 02: Howl's moving casteljau](https://brynmawr-cs317-f21.github.io/website/asst02-interpolation.html)
+* [Assignment 03: The Catmull-ROM COM](https://brynmawr-cs317-f21.github.io/website/asst03-splines.html)
 
 # Tools and dependencies
 

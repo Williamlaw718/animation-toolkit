@@ -17,6 +17,7 @@ public:
 
     virtual glm::vec3 interpolate(int segment, double u) const {
        // todo: your code here
+        //value = const glm::vec3(0,0,0);
        return glm::vec3(0);
     }
 
@@ -33,6 +34,7 @@ public:
 private:
     bool mIsClamped = true;
     glm::vec3 mClampDir;
+    glm::vec3 value;
 };
 
 #endif

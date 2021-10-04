@@ -15,6 +15,9 @@ int main()
 
    InterpolatorHermite hermite;
    hermite.computeControlPoints(keys);
+    // test interpolation with clamped endpoints
+   hermite.setClamped(true);
+   hermite.setClampedDirection(vec3(1.0, 0.0, 0.0));
 
    // todo: print the control points in hemite
    // verify they match the example from class!
@@ -23,9 +26,7 @@ int main()
       std::cout << "control point: " << to_string(hermite.getControlPoint(i)) << std::endl;
    }
 
-   // test interpolation with clamped endpoints
-   hermite.setClamped(true);
-   hermite.setClampedDirection(vec3(1.0, 0.0, 0.0));
+  
    hermite.computeControlPoints(keys);
 
    vec3 value;

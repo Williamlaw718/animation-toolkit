@@ -3,40 +3,55 @@
 
 namespace atkmath {
 
-float thetaX;
-float thetaY;
-float thetaZ;
+atkmath::Vector3 angleRad;
 
 Vector3 Matrix3::toEulerAnglesXYZ() const
 {
-   m11;
-   return Vector3();
+   angleRad[0] =  -atan2(m23,m33);
+   angleRad[1] = asin(m13);
+   angleRad[2] = -atan2(m12,m11);
+   return angleRad;
 }
 
 Vector3 Matrix3::toEulerAnglesXZY() const
 {
-   return Vector3();
+   angleRad[0] = atan2(m32,m22);
+   angleRad[1] = atan2(m13,m11);
+   angleRad[2] = asin(-m12);
+   return angleRad;
 }
 
 Vector3 Matrix3::toEulerAnglesYXZ() const
 {
-   return Vector3();
+   angleRad[0] = asin(-m23);
+   angleRad[1] = atan2(m13,m33);
+   angleRad[2] = atan2(m21,m22);
+   return angleRad;
 }
 
 Vector3 Matrix3::toEulerAnglesYZX() const
 {
-   return Vector3();
+   angleRad[0] = -atan2(m23,m22);
+   angleRad[1] = -atan2(m31,m11);
+   angleRad[2] = asin(m21);
+   return angleRad;
 }
 
 Vector3 Matrix3::toEulerAnglesZXY() const
 {
 
-   return Vector3();
+   angleRad[0] = asin(m32);
+   angleRad[1] = -atan2(m31,m33);
+   angleRad[2] = -atan2(m12,m22);
+   return angleRad;
 }
 
 Vector3 Matrix3::toEulerAnglesZYX() const
 {
-   return Vector3();
+   angleRad[0] = atan2(m32,m33);
+   angleRad[1] = asin(-m31);
+   angleRad[2] = atan2(m21,m11);
+   return angleRad;
 }
 
 void Matrix3::fromEulerAnglesXYZ(const Vector3& angleRad)
@@ -125,16 +140,24 @@ void Matrix3::fromEulerAnglesZYX(const Vector3& angleRad)
 
 void Matrix3::toAxisAngle(Vector3& axis, double& angleRad) const
 {
-   // TODO
+   axis[0] = pow(((m11-cos(angleRad))/(1-cos(angleRad))), 1/2);
+   axis[1] = pow(((m22-cos(angleRad))/(1-cos(angleRad))), 1/2);;
+   axis[2] = pow(((m33-cos(angleRad))/(1-cos(angleRad))), 1/2);;
 }
 
 void Matrix3::fromAxisAngle(const Vector3& axis, double angleRad)
 {
-   // TODO
+   // TODO 
    *this = Identity;
    m11 = cos(angleRad) + (1 - cos(angleRad)) * (axis[0] * axis[0]);
    m12 = -sin(angleRad) * axis[2] + (1-cos(angleRad)) * axis[0] * axis[1];
-   
+   m13 = axis[1] * sin(angleRad) + axis[0] * axis[2] * (1 - cos(angleRad));
+   m21 = -axis[2] * sin(angleRad) + (axis[0] * axis[1] * (1 - cos(angleRad)));
+   m22 = cos(angleRad) + (1 - cos(angleRad)) * (axis[1] * axis[1]);
+   m23 =  -axis[0] * sin(angleRad) + axis[1] * axis[2] * (1 - cos(angleRad));
+   m31 = sin(angleRad) * axis[1] + (1-cos(angleRad)) * axis[0] * axis[1];
+   m32 = -axis[0] * sin(angleRad) + (1-cos(angleRad)) * axis[1] * axis[2];
+   m33 = cos(angleRad) + (1-cos(angleRad)) * (axis[2] * axis[2]);
 }
 
 

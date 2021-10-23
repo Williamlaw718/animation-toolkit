@@ -28,7 +28,7 @@ public:
     void fromAxisAngle (const Vector3& axis, double angleRad);
 
     Matrix3 toMatrix () const;
-    void fromMatrix (const Matrix3& rot);
+    void fromMatrix (Matrix3& rot);
 
     // Assignment operators
     Quaternion& operator = (const Quaternion& q);	

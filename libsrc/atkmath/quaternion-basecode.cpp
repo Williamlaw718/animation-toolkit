@@ -49,10 +49,33 @@ Matrix3 Quaternion::toMatrix () const
 void Quaternion::fromMatrix(const Matrix3& rot)
 {
 	// TODO
-	mW = pow((.25 * (rot[1][1] + rot[2][2] + rot[3][3] +1)),1/2);
-	mX = pow((.25 * (rot[1][1] - rot[2][2] - rot[3][3] +1)),1/2);
-	mY = pow((.25 * (1 - rot[1][1] + rot[2][2] - rot[3][3])),1/2);
-	mZ = pow((.25 * (1 - rot[1][1] - rot[2][2] + rot[3][3])),1/2);
+	double T = rot[1][1] + rot[2][2] + rot[3][3];
+	if(T > 0){
+		double v = .5/ (sqrt(T+1));
+		mW = .25/v;
+		mX = (rot[3][2] - rot[2][3]) *v;
+		mY = (rot[1][3] - rot[3][1]) * v;
+		mZ = (rot[2][1] - rot[1][2]) * v;
+	} else if ((rot[1][1] > rot[2][2]) && (rot[1][1] > rot[3][3])){
+		double v = sqrt(1.0 + rot[1][1] - rot[2][2] - rot[3][3]) * 2;
+		mX = .25 * v;
+		mW = (rot[3][2] - rot[2][3])/v;
+		mY = (rot[1][2] + rot[2][1])/v;
+		mZ = (rot[1][3] + rot[3][1])/v;
+	} else if(rot[2][2] > rot[3][3]){
+		double v = sqrt(1.0 + rot[2][2] - rot[1][1] - rot[3][3]) * 2;
+		mX = (rot[1][2] + rot[2][1])/v;
+		mW = (rot[1][3] - rot[3][1])/v;
+		mY = .25 * v;
+		mZ = (rot[2][3] + rot[3][2])/v;
+
+	}else{
+		double v = sqrt(1.0 + rot[3][3] - rot[1][1] - rot[2][2]) * 2;
+		mW = (rot[2][1] - rot[1][2])/v;
+		mX = (rot[1][3] + rot[3][1])/v;
+		mY = (rot[2][3] + rot[3][2])/v;
+		mZ = .25 * v;
+	}
 	
 }
 

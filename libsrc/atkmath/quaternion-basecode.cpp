@@ -32,17 +32,18 @@ void Quaternion::fromAxisAngle (const Vector3& axis, double angleRad)
 Matrix3 Quaternion::toMatrix () const
 {
 	// TODO
-	Matrix3 m = Matrix3();
-	m[1][1] = 1 - 2 * (pow(mY,2) + pow(mZ,2));
-	m[1][2] = 2 * ((mX * mY) - (mW * mZ));
-	m[1][3] = 2 * ((mX * mZ) + (mW * mY));
-	m[2][1] = 2 * ((mX * mZ) + (mW * mY));
-	m[2][2] = 1 - 2 * (pow(mX,2) + pow(mZ,2));
-	m[2][3] = 2 * ((mY * mZ) - (mW * mX));
-	m[3][1] = 2 * ((mX * mZ) - (mW * mY));
-	m[3][2] = 2 * ((mY * mZ) + (mW * mX));
-	m[3][3] = 1 - 2 * (pow(mY,2) + pow(mX,2));
-	return m;
+	//Matrix3& Nm = Matrix3();
+	Matrix3 Nm;
+	Nm[1][1] = 1 - 2 * (pow(mY,2) + pow(mZ,2));
+	Nm[1][2] = 2 * ((mX * mY) - (mW * mZ));
+	Nm[1][3] = 2 * ((mX * mZ) + (mW * mY));
+	Nm[2][1] = 2 * ((mX * mY) + (mW * mZ));
+	Nm[2][2] = 1 - 2 * (pow(mX,2) + pow(mZ,2));
+	Nm[2][3] = 2 * ((mY * mZ) - (mW * mX));
+	Nm[3][1] = 2 * ((mX * mZ) - (mW * mY));
+	Nm[3][2] = 2 * ((mY * mZ) + (mW * mX));
+	Nm[3][3] = 1 - 2 * (pow(mY,2) + pow(mX,2));
+	return Nm;
 }
 
 void Quaternion::fromMatrix(const Matrix3& rot)

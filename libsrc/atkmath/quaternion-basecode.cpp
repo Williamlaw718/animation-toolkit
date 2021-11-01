@@ -4,10 +4,28 @@
 
 namespace atkmath {
 
+
+double x;
+Quaternion q = Quaternion();
 Quaternion Quaternion::Slerp(const Quaternion& q0, const Quaternion& q1, double t)
 {
 	// TODO
-	return Quaternion(1,0,0,0);
+	double theta;
+	
+	if(acos(q1[3]) != 0){
+		theta = acos(q1[3]);
+	} else if (acos(q0[3]) != 0)
+	{
+		theta = acos(q0[3]);
+	}
+	
+	if(sin(theta) == 0){
+		return q0;
+	}else{
+		q = (q0 * (sin(theta * (1-t))/sin(theta))) + (((sin(theta * t))/sin(theta)) * q1);
+	}
+
+	return q;
 }
 
 void Quaternion::toAxisAngle (Vector3& axis, double& angleRad) const

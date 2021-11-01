@@ -1,4 +1,4 @@
-#ifndef ATK_TRANSFORM_H_
+ #ifndef ATK_TRANSFORM_H_
 #define ATK_TRANSFORM_H_
 
 #include "atk/glmmath.h" 

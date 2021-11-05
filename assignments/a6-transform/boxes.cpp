@@ -54,7 +54,7 @@ public:
 
       // Question 4
       // Compute a series of transforms that stack Box 2 onto Box 1
-      Transform F = F10.inverse() * F10;
+      Transform F = F20 * F30 * F10 * F10.inverse();
       setColor(vec3(0.5, 0.5,0.5));
       drawBox(F);
 

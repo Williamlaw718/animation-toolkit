@@ -18,8 +18,13 @@ public:
    }
 
    void scene() {
-      time += dt();
-      motion.update(skeleton, time);
+      if (paused != true)
+      {
+         time += dt();
+         motion.update(skeleton, time);
+      }
+      
+      
 
       setColor(vec3(0,0,0.8));
       for (int i = 0; i < skeleton.getNumJoints(); i++) {
@@ -37,6 +42,31 @@ public:
    }
 
    virtual void keyUp(int key, int mods) {
+
+   if (key == GLFW_KEY_P) {
+      motion.update(skeleton, 0);
+
+      if (key == GLFW_KEY_P) {
+         paused = false;
+      }
+
+      if (key == GLFW_KEY_PERIOD){
+         currentFrame++;
+      }
+
+      if(key == GLFW_KEY_COMMA){
+         currentFrame--;
+      }
+    }
+
+    if(key == GLFW_KEY_LEFT_BRACKET){
+      timeScale++;
+    }
+
+    if(key == GLFW_KEY_RIGHT_BRACKET){
+      timeScale--;
+    }
+   
    }
 
 private:

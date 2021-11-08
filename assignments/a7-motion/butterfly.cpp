@@ -11,6 +11,8 @@ public:
    Butterfly() : atkui::Framework(atkui::Perspective) {
    }
 
+   
+
    void setup() {
       Joint* body = new Joint("Body");
       body->setLocalTranslation(vec3(1,2,1)*100.0f);
@@ -25,6 +27,10 @@ public:
       rwing->setLocalTranslation(vec3(-0.1,0,0)*100.0f);
       skeleton.addJoint(rwing, body);
 
+      Joint* llwing = new Joint("LWing");
+      llwing->setLocalTranslation(vec3(0.1,0,0)*100.0f);
+      skeleton.addJoint(llwing, body);
+
       skeleton.fk();
    }
 
@@ -33,46 +39,65 @@ public:
       Joint* lwing = skeleton.getByName("LWing");
       lwing->setLocalRotation(glm::angleAxis(sin(elapsedTime()), vec3(0,0,1)));
 
+      Joint* llwing = skeleton.getByName("LWing");
+      lwing->setLocalRotation(glm::angleAxis(sin(elapsedTime()), vec3(0,0,1)));
+
       Joint* rwing = skeleton.getByName("RWing");
       rwing->setLocalRotation(glm::angleAxis(-sin(elapsedTime()), vec3(0,0,1))); 
       skeleton.fk();
-
+  
       // attach geometry to skeleton 
       Transform B = body->getLocal2Global(); 
-      Transform LT = lwing->getLocal2Global(); 
+      Transform LT = lwing->getLocal2Global();
+      Transform LLT = llwing->getLocal2Global(); 
       Transform RT = rwing->getLocal2Global(); 
 
       // draw body
       Transform bodyGeometry(
-         glm::angleAxis(glm::pi<float>()*0.5f, vec3(1,0,0)), // rotation
+         glm::angleAxis(glm::pi<float>()*.7f, vec3(1,0,0)), // rotation
          vec3(0), vec3(25, 200, 25)); // position, scale
 
       Transform lwingGeometry(
-         eulerAngleRO(XYZ, vec3(0,0,0)),
-         vec3(-80,0,0), 
-         vec3(120,20,200));
+         eulerAngleRO(XYZ, vec3(0,10,0)),
+         vec3(-60,0,20), 
+         vec3(100,20,200));
+
+   Transform llwingGeometry(
+      eulerAngleRO(XYZ, vec3(0,10,0)),
+      vec3(-60,0,20), 
+      vec3(100,20,200));
 
       Transform rwingGeometry(
-         eulerAngleRO(XYZ, vec3(0,0,0)),
-         vec3(80,0,0), 
-         vec3(120,20,200));
+         eulerAngleRO(XYZ, vec3(0,-10,0)),
+         vec3(60,0,20), 
+         vec3(100,20,200));
 
       setColor(vec3(0.4, 0.4, 0.8));
       push();
       transform(B * bodyGeometry);
       drawSphere(vec3(0), 1);
+      
       pop();
 
       setColor(vec3(0.8, 0, 0.0));
       push();
       transform(LT * lwingGeometry);
       drawSphere(vec3(0), 1);
+      //drawEllipsoid(vec3(0),vec3(1),.5);
+      pop();
+
+      setColor(vec3(0.8, 0.8, 0.0));
+      push();
+      transform(LLT * llwingGeometry);
+      drawSphere(vec3(0), .5);
+      //drawEllipsoid(vec3(0),vec3(1),.5);
       pop();
 
       setColor(vec3(0, 0.8, 0.0));
       push();
       transform(RT * rwingGeometry);
       drawSphere(vec3(0), 1);
+      //drawEllipsoid(vec3(0),vec3(1),.5);
       pop();
    }
 

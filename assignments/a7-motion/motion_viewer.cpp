@@ -44,20 +44,19 @@ public:
    virtual void keyUp(int key, int mods) {
 
    if (key == GLFW_KEY_P) {
-      motion.update(skeleton, 0);
+      paused = !paused;
 
-      if (key == GLFW_KEY_P) {
-         paused = false;
-      }
-
+   } 
+   if (paused == true){
       if (key == GLFW_KEY_PERIOD){
          currentFrame++;
-      }
+   }
 
       if(key == GLFW_KEY_COMMA){
          currentFrame--;
       }
-    }
+   }
+    
 
     if(key == GLFW_KEY_LEFT_BRACKET){
       timeScale++;
@@ -66,9 +65,13 @@ public:
     if(key == GLFW_KEY_RIGHT_BRACKET){
       timeScale--;
     }
+
+   if(key == GLFW_KEY_0){
+      currentFrame = 0;
+    }
+
    
    }
-
 private:
    Skeleton skeleton;
    Motion motion;

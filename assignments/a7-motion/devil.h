@@ -113,8 +113,8 @@ public:
    }
 
 protected:
-   Motion _motion;
-   Skeleton _skeleton;
+   //Motion _motion;
+   //Skeleton _skeleton;
    bool _paused = false;
    vec3 _color = vec3(1.0,0.0,0.0);
    vec3 _size = vec3(1.0);

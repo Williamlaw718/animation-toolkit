@@ -36,7 +36,11 @@ int main(int argc, char** argv)
    // Hint: use extractEulerAngleRO (defined in atk/glmmath.h)
    Joint* hand = skeleton.getByName("Beta:LeftHand\r");
    vec3 eulerXYZ = vec3(0);
-   //extractEulerAngleRO(XYZ, hand.);
+   //mat3 m = fromQuaternion(hand->getLocalRotation());
+   glm::mat3 m;
+   
+   //m = glm::mat3(hand->getLocalTranslation());
+   //vec3 eulerXYZ = extractEulerAngleRO(XYZ, eulerAngleRO(XYZ,hand->getLocalTranslation()));
    std::cout << "The local rotation of the left hand on frame 5 is: " << glm::to_string(eulerXYZ) << std::endl;
 
    // What is the speed of the character?
@@ -45,6 +49,6 @@ int main(int argc, char** argv)
    Pose frameN = motion.getKey(motion.getNumKeys()-1);
    vec3 delta = frameN.rootPos - frame0.rootPos;
    float distance = delta.length();
-   float speed = distance;
+   float speed = distance/motion.getDuration();
    std::cout << "The speed of the motion is (units/s): " << speed << std::endl;
 }

@@ -20,25 +20,30 @@ public:
 
       vec3 position = vec3(0);
       vec3 color = vec3(1,0,0);
+      float x = 0;
+      float y = 0;
+      float z = 0;
       float size = 1.0f;
-      mDevil = new Devil[12];
-      _devil = Devil(position, color, size);
+      //Devil mDevil[12];
+      //_devil = Devil(position, color, size);
       
-      for(int i = 0; i <= 12; i++){
-         size = random();
+      for(int i = 0; i < 12; i++){
+         //size = random();
 
-         mDevil[i] = Devil(position,color,size);
+         mDevil[i] = Devil(vec3(rand() % 500,0,0), vec3(rand() % 255,rand() % 255,rand() % 255),rand() % 5);
       }
+
+      //mDevil[0] = Devil(vec3(1,0,0),vec3(1,0,1),size);
 
    }
 
    virtual void scene() {
-      if (!_paused) _motion.update(_skeleton, elapsedTime());
-      _devil.draw(_skeleton, *this);
-
-   /*for(int i = 0; i < 12; i++){
+   if (!_paused) _motion.update(_skeleton, elapsedTime());
+      //_devil.draw(_skeleton, *this);
+      //mDevil[0].draw(_skeleton,*this);
+   for(int i = 0; i < 12; i++){
       mDevil[i].draw(_skeleton,*this);
-    }*/
+    }
    }
 
    virtual void keyUp(int key, int mods) {
@@ -50,7 +55,7 @@ protected:
    Skeleton _skeleton;
    bool _paused = false;
    Devil _devil;
-   Devil * mDevil;
+   Devil mDevil[12];
 };
 
 int main(int argc, char** argv) {

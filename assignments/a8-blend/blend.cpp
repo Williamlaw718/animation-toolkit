@@ -30,7 +30,22 @@ public:
       blend.setFramerate(m1.getFramerate());
 
       // todo: replace the following line with your code
-      blend.appendKey(m1.getKey(0)); // placeholder
+      //
+      double duration = m1.getDuration() * (1-alpha) + m2.getDuration() * alpha;
+      double deltaT = 1.0f/m1.getFramerate();
+      
+      for(float i =0; i < duration; i = i + deltaT){
+         pose1 = m1.getValue(i);
+         pose2 = m2.getValue(i);
+		   newPose = Pose::Lerp(pose1,pose2,alpha);
+         blend.appendKey(newPose);
+         
+      }
+      /*
+		result.appendKey(newPose)
+      return result*/  
+       // placeholder
+      blend.setFramerate(m1.getFramerate());
       return blend;
    }
 
@@ -73,6 +88,9 @@ protected:
    Motion _motion1;
    Motion _motion2;
    double _alpha;
+   Pose pose1;
+   Pose pose2;
+	Pose newPose;
 };
 
 int main(int argc, char** argv)

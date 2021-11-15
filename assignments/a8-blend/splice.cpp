@@ -29,8 +29,26 @@ public:
       Motion result;
       result.setFramerate(lower.getFramerate());
       // todo: your code here
+      Motion newUpper = upper;
+      newUpper.setFramerate(lower.getFramerate());
+      //newUpper = upper * (1-alpha) + lower * alpha;
+      for(int i = 0; i < upper.getNumKeys(); i++){
+         Pose p = newUpper.getKey(i);
+         if(isUpper(p.jointRots[i]) != true){
+
+         }
+         
+      }
       result.appendKey(lower.getKey(0));
       return result;
+   }
+
+   bool isUpper(Skeleton skel){
+      if(skel.getParent()->getName() == "Beta:Spine1\r"){
+         return true;
+      }else{
+         return false;
+      }
    }
 
    void scene()

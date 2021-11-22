@@ -34,9 +34,9 @@ public:
       //newUpper = upper * (1-alpha) + lower * alpha;
       for(int i = 0; i < upper.getNumKeys(); i++){
          Pose p = newUpper.getKey(i);
-         if(isUpper(p.jointRots[i]) != true){
+         /*if(isUpper(p.jointRots[i]) != true){
 
-         }
+         }*/
          
       }
       result.appendKey(lower.getKey(0));
@@ -44,7 +44,7 @@ public:
    }
 
    bool isUpper(Skeleton skel){
-      if(skel.getParent()->getName() == "Beta:Spine1\r"){
+      if(skel.getRoot()->getName() == "Beta:Spine1\r"){
          return true;
       }else{
          return false;

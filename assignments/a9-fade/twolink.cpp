@@ -65,6 +65,7 @@ class AIKSimple : public atkui::Framework
 
   void drawGui()
   {
+
     ImGui_ImplOpenGL3_NewFrame();
     ImGui_ImplGlfw_NewFrame();
     ImGui::NewFrame();
@@ -95,6 +96,7 @@ class AIKSimple : public atkui::Framework
 
   void draw()
   {
+    mGoalPosition = vec3(100,0,0);
     mDrawer.draw(mActor, *this);
     drawFloor(2000, 20, 50);
 
@@ -127,12 +129,26 @@ class AIKSimple : public atkui::Framework
   void solveIKTwoLink(Skeleton &skeleton, const vec3 &goalPosition)
   {
     // todo: implement two link IK algorithm
+    //distan
+    Joint *j = skeleton.getByID(0);
+    Joint *j1 = skeleton.getByID(1);
+    Joint *j2 = skeleton.getByID(2);
+    //float x1 =
+    float x1 = j->getLocalTranslation()[0];
+    float x2 = j1->getLocalTranslation()[0];
+    theta2z = acos((pow(goalPosition[0],2) - pow(x1,2) - pow(x2,2))/(-2 * (x1 * x2)));
+    skeleton.getByName("Elbow\r")->setLocalRotation(eulerAngleZ(theta2z));
+    theta1z = (-(x2)*theta2z)/(-2 * (x1 * x2));
+    skeleton.getRoot()->setLocalRotation(eulerAngleZ(theta1z));
+    skeleton.fk();
   }
 
  private:
   atk::Skeleton mActor;
   atkui::SkeletonDrawer mDrawer;
   glm::vec3 mGoalPosition;
+  float theta2z;
+  float theta1z;
 };
 
 int main(int argc, char **argv)

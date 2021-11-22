@@ -38,6 +38,26 @@ public:
     int start2 = 0;
 
     // TODO: Your code here
+    for(int i =0; i < motion1_.getNumKeys(); i++){
+         blend_.appendKey(motion1_.getKey(i));
+    }
+
+    for(int i = 0; i < motion2_.getNumKeys(); i++){
+      blend_.appendKey(motion2_.getKey(i));
+    }
+
+    //double deltaT = 1.0f/m1.getFramerate();
+      
+    for(int i =0; i < new_motion.getNumKeys(); i++){
+         pose1 = motion1_.getKey(i);
+         pose2 = motion2_.getKey(i);
+		     newPose = Pose::Lerp(pose1,pose2,numBlendFrames);
+         blend_.appendKey(newPose);
+         
+      }
+
+      blend_.setFramerate(motion1_.getFramerate());
+    
   }
 
   void save(const std::string &filename)
@@ -58,6 +78,10 @@ private:
   Motion motion1_;
   Motion motion2_;
   Motion blend_;
+  Motion new_motion;
+  Pose pose1;
+  Pose pose2;
+  Pose newPose;
 };
 
 std::string PruneName(const std::string &name)

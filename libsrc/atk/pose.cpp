@@ -60,6 +60,7 @@ Pose& Pose::operator = (const Pose& p)
    return s;
    }*/
 
+/*
 std::ostream& operator<<(std::ostream& s, const Pose& v)
 {
   s << "pose(" << std::endl;
@@ -70,7 +71,7 @@ std::ostream& operator<<(std::ostream& s, const Pose& v)
   }
   s << ")\n";
   return s;
-}
+}*/
 
 Pose Pose::Lerp(const Pose& key1, const Pose& key2, float u)
 {
@@ -85,6 +86,7 @@ Pose Pose::Lerp(const Pose& key1, const Pose& key2, float u)
   }
   return pose;
 }
+
 
 quat qExp(const quat& q)
 {

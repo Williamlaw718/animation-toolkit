@@ -3,8 +3,8 @@ cmake_minimum_required(VERSION 3.16.0)
 
 if (WIN32) # NOTE: Needs testing for optional AntTweakBar
 
-  find_library(GLEW NAMES glew32s PATHS external/lib/x64)
-  find_library(GLFW NAMES glfw3 PATHS external/lib)
+  find_library(GLEW NAMES glew32s PATHS "C:/Users/willi/source/repos/animation-toolkit/external/lib/x64")
+  find_library(GLFW NAMES glfw3 PATHS "C:/Users/willi/Source/Repos/animation-toolkit/external/lib")
   #find_library(ODE NAMES ode_doubled PATHS 3rdparty/ode-0.13/lib/DebugDoubleDLL)
 
   set(INCLUDE_DIRS
@@ -16,12 +16,7 @@ if (WIN32) # NOTE: Needs testing for optional AntTweakBar
   set(LIBRARY_DIRS libsrc)
 
   set(CMAKE_CXX_STANDARD 11) 
-  set(CMAKE_CXX_FLAGS 
-     "/wd4018 /wd4244 /wd4305 
-     /D_CRT_SECURE_NO_WARNINGS 
-     /D_CRT_NONSTDC_NO_DEPRECATE 
-     /D NOMINMAX /DGLEW_STATIC
-     /EHsc")
+  set(CMAKE_CXX_FLAGS      "/wd4018 /wd4244 /wd4305      /D_CRT_SECURE_NO_WARNINGS      /D_CRT_NONSTDC_NO_DEPRECATE      /D NOMINMAX /DGLEW_STATIC /EHsc")
 
   #set(INSTALL_LIST
   #   3rdparty/glut/glutx86/glew32.dll 

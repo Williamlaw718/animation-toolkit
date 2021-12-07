@@ -35,7 +35,18 @@ bool IKController::solveIKCCD(Skeleton& skeleton, int jointid,
     float threshold, int maxIters, float nudgeFactor) {
   // There are no joints in the IK chain for manipulation
   if (chain.size() == 0) return true;
-
+  vec3 p = skeleton.getByID(jointid)->getGlobalTranslation();
+  //float length = sqrt((diff[0] * diff[0]) + (diff[1] * diff[1]) + (diff[2] * diff[2]));
   // TODO: Your code here
+  vec3 diff = goalPos - skeleton.getByID(jointid)->getGlobalTranslation();
+  float length = sqrt((diff[0] * diff[0]) + (diff[1] * diff[1]) + (diff[2] * diff[2]));
+  while (sqrt(((goalPos[0]-p[0]) * (goalPos[0] - p[0])) + ((goalPos[1] - p[1]) * (goalPos[1] - p[1])) + ((goalPos[2] - p[2]) * (goalPos[2] - p[2]))) < threshold) {
+      for (int i = jointid; i > 0; i--) {
+
+
+      }
+  }
+  vec3 p = 
+  skeleton.getByID(jointid);
   return false;
 }

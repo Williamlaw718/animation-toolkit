@@ -16,10 +16,21 @@ float ASteerable::kOriKp = 150.0;
 void ASteerable::senseControlAct(const vec3& veld, float dt)
 {
    // Compute _vd and _thetad
-
+	vec3 _vd;
+	_vd = veld;
+	float length_of_vd = sqrt((_vd[0] * _vd[0]) + (_vd[1] * _vd[1]) + (_vd[2] * _vd[2]));
+	_vd = _vd / length_of_vd;
+	float _thetad;
+	_thetad = atan2(_vd[0],_vd[2]);
    // compute _force and _torque
+	float _force;
+	_force = _mass * kVelKv * (length_of_vd - _state[2]);
+	float _torque;
+	_torque = 1.0 * (-kOriKv * _state[3] + kOriKp * (_thetad - _state[1]))
 
-   // find derivative
+		// find derivative
+
+	_derivative[0];
 
    // update state
 

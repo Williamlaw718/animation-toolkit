@@ -35,7 +35,7 @@ int main(int argc, char** argv)
    // Hint: use the skeleton to get the ID for the hand
    // Hint: use extractEulerAngleRO (defined in atk/glmmath.h)
    Joint* hand = skeleton.getByName("Beta:LeftHand\r");
-   vec3 eulerXYZ = vec3(0);
+   //vec3 eulerXYZ = vec3(0);
    //mat3 m = fromQuaternion(hand->getLocalRotation());
    glm::mat3 m;
    

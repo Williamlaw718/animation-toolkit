@@ -56,15 +56,15 @@ Matrix3 Quaternion::toMatrix () const
 	//Matrix3 m = Matrix3();
 	Matrix3 Nm = Matrix3();
 	//Matrix3 Nm;
-	Nm[0][0] = 1.0 - 2.0 * (pow(mY, 2) + pow(mZ, 2));
-	Nm[0][1] = 2.0 * ((mX * mY) - (mW * mZ));
-	Nm[0][2] = 2.0 * ((mX * mZ) + (mW * mY));
-	Nm[1][0] = 2.0 * ((mX * mY) + (mW * mZ));
-	Nm[1][1] = 1.0 - 2.0 * (pow(mX, 2) + pow(mZ, 2));
-	Nm[1][2] = 2.0 * ((mY * mZ) - (mW * mX));
-	Nm[2][0] = 2.0 * ((mX * mZ) - (mW * mY));
-	Nm[2][1] = 2.0 * ((mY * mZ) + (mW * mX));
-	Nm[2][2] = 1.0 - 2.0 * (pow(mY, 2) + pow(mX, 2));
+	Nm[0][0] = 1 - 2 * ((mY * mY) + (mZ * mZ));
+	Nm[0][1] = 2 * ((mX * mY) - (mW * mZ));
+	Nm[0][2] = 2 * ((mX * mZ) + (mW * mY));
+	Nm[1][0] = 2 * ((mX * mY) + (mW * mZ));
+	Nm[1][1] = 1 - 2 * ((mX * mX) + (mZ * mZ));
+	Nm[1][2] = 2 * ((mY * mZ) - (mW * mX));
+	Nm[2][0] = 2 * ((mX * mZ) - (mW * mY));
+	Nm[2][1] = 2 * ((mY * mZ) + (mW * mX));
+	Nm[2][2] = 1 - 2 * ((mY * mY) + (mX * mX));
 	//Nm = m;
 	return Nm;
 	
@@ -74,32 +74,33 @@ Matrix3 Quaternion::toMatrix () const
 void Quaternion::fromMatrix(const Matrix3& rot)
 {
 	// TODO
-	double T = rot[1][1] + rot[2][2] + rot[3][3];
-	if(T > 0){
-		double v = .5/ (sqrt(T+1));
-		mW = .25/v;
-		mX = (rot[3][2] - rot[2][3]) *v;
-		mY = (rot[1][3] - rot[3][1]) * v;
-		mZ = (rot[2][1] - rot[1][2]) * v;
-	} else if ((rot[1][1] > rot[2][2]) && (rot[1][1] > rot[3][3])){
-		double v = sqrt(1.0 + rot[1][1] - rot[2][2] - rot[3][3]) * 2;
-		mX = .25 * v;
-		mW = (rot[3][2] - rot[2][3])/v;
-		mY = (rot[1][2] + rot[2][1])/v;
-		mZ = (rot[1][3] + rot[3][1])/v;
-	} else if(rot[2][2] > rot[3][3]){
-		double v = sqrt(1.0 + rot[2][2] - rot[1][1] - rot[3][3]) * 2;
-		mX = (rot[1][2] + rot[2][1])/v;
-		mW = (rot[1][3] - rot[3][1])/v;
-		mY = .25 * v;
-		mZ = (rot[2][3] + rot[3][2])/v;
+	double mX2 = .25 * (1 + rot[0][0] - rot[1][1] - rot[2][2]);
+	double mY2 = .25 * (1 - rot[0][0] + rot[1][1] - rot[2][2]);
+	double mZ2 = .25 * (1 - rot[0][0] - rot[1][1] + rot[2][2]);
+	double mW2 = .25 * (1 + rot[0][0] + rot[1][1] + rot[2][2]);
+
+	if((mX2 > mY2) && (mX2 > mW2) && (mX2 > mZ2)){
+		
+		mX = sqrt(mW2);
+		mW = 1/(4 * mX) * (rot[2][1] - rot[1][2]);
+		mY = 1/(4 * mX) * (rot[1][0] - rot[0][1]);
+		mZ = 1/(4 * mX) * (rot[0][2] - rot[2][0]);
+	} else if ((mY2 > mX2) && (mY2 > mW2) && (mY2 > mZ2)){
+		mY = sqrt(mW2);
+		mW = 1/(4 * mY) * (rot[0][2] - rot[2][1]);
+		mX = 1/(4 * mY) * (rot[1][0] - rot[0][1]);
+		mZ = 1/(4 * mY) * (rot[1][2] - rot[2][1]);
+	} else if((mZ2 > mY2) && (mZ2 > mW2) && (mZ2 > mX2)){
+		mZ = sqrt(mW2);
+		mW = 1/(4 * mZ) * (rot[1][0] - rot[0][1]);
+		mY = 1/(4 * mZ) * (rot[1][2] - rot[2][1]);
+		mX = 1/(4 * mZ) * (rot[0][2] - rot[2][0]);
 
 	}else{
-		double v = sqrt(1.0 + rot[3][3] - rot[1][1] - rot[2][2]) * 2;
-		mW = (rot[2][1] - rot[1][2])/v;
-		mX = (rot[1][3] + rot[3][1])/v;
-		mY = (rot[2][3] + rot[3][2])/v;
-		mZ = .25 * v;
+		mW = sqrt(mW2);
+		mX = 1/(4 * mW) * (rot[2][1] - rot[1][2]);
+		mY = 1/(4 * mW) * (rot[0][2] - rot[2][0]);
+		mZ = 1/(4 * mW) * (rot[1][0] - rot[0][1]);
 	}
 	
 }

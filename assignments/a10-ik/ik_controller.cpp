@@ -46,7 +46,7 @@ bool IKController::solveIKCCD(Skeleton& skeleton, int jointid,
 
       }
   }
-  vec3 p = 
-  skeleton.getByID(jointid);
+  //vec3 p = 
+  //skeleton.getByID(jointid);
   return false;
 }

@@ -26,7 +26,7 @@ void ASteerable::senseControlAct(const vec3& veld, float dt)
 	float _force;
 	_force = _mass * kVelKv * (length_of_vd - _state[2]);
 	float _torque;
-	_torque = 1.0 * (-kOriKv * _state[3] + kOriKp * (_thetad - _state[1]))
+	_torque = 1.0 * (-kOriKv * _state[3] + kOriKp * (_thetad - _state[1]));
 
 		// find derivative
 

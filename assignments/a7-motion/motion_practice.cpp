@@ -35,12 +35,13 @@ int main(int argc, char** argv)
    // Hint: use the skeleton to get the ID for the hand
    // Hint: use extractEulerAngleRO (defined in atk/glmmath.h)
    Joint* hand = skeleton.getByName("Beta:LeftHand\r");
-   //vec3 eulerXYZ = vec3(0);
+   mat3 m = glm::toMat3(hand->getLocalRotation());
+   //vec3 eulerXYZ = extractEulerAngleRO(XYZ,m);
    //mat3 m = fromQuaternion(hand->getLocalRotation());
-   glm::mat3 m;
+   //glm::mat3 m;
    
-   //m = glm::mat3(hand->getLocalTranslation());
-   vec3 eulerXYZ = extractEulerAngleRO(XYZ, eulerAngleRO(XYZ,hand->getLocalTranslation()));
+   //m = hand.g;
+   vec3 eulerXYZ = extractEulerAngleRO(XYZ, hand->getLocalRotation());
    std::cout << "The local rotation of the left hand on frame 5 is: " << glm::to_string(eulerXYZ) << std::endl;
 
    // What is the speed of the character?

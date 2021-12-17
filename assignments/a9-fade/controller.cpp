@@ -44,7 +44,7 @@ public:
     _walk.update(_skeleton, elapsedTime());
 
     // TODO: Your code here
-
+    
     // TODO: Override the default camera to follow the character
     // lookAt(pos, look, vec3(0, 1, 0));
 

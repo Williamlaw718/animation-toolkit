@@ -53,18 +53,18 @@ void Quaternion::fromAxisAngle (const Vector3& axis, double angleRad)
 Matrix3 Quaternion::toMatrix () const
 {
 	// TODO
-	Matrix3 m = Matrix3();
-	Matrix3 Nm = m;
+	//Matrix3 m = Matrix3();
+	Matrix3 Nm = Matrix3();
 	//Matrix3 Nm;
-	Nm[1][1] = 1.0 - 2.0 * (pow(mY, 2) + pow(mZ, 2));
-	Nm[1][2] = 2.0 * ((mX * mY) - (mW * mZ));
-	Nm[1][3] = 2.0 * ((mX * mZ) + (mW * mY));
-	Nm[2][1] = 2.0 * ((mX * mY) + (mW * mZ));
-	Nm[2][2] = 1.0 - 2.0 * (pow(mX, 2) + pow(mZ, 2));
-	Nm[2][3] = 2.0 * ((mY * mZ) - (mW * mX));
-	Nm[3][1] = 2.0 * ((mX * mZ) - (mW * mY));
-	Nm[3][2] = 2.0 * ((mY * mZ) + (mW * mX));
-	Nm[3][3] = 1.0 - 2.0 * (pow(mY, 2) + pow(mX, 2));
+	Nm[0][0] = 1.0 - 2.0 * (pow(mY, 2) + pow(mZ, 2));
+	Nm[0][1] = 2.0 * ((mX * mY) - (mW * mZ));
+	Nm[0][2] = 2.0 * ((mX * mZ) + (mW * mY));
+	Nm[1][0] = 2.0 * ((mX * mY) + (mW * mZ));
+	Nm[1][1] = 1.0 - 2.0 * (pow(mX, 2) + pow(mZ, 2));
+	Nm[1][2] = 2.0 * ((mY * mZ) - (mW * mX));
+	Nm[2][0] = 2.0 * ((mX * mZ) - (mW * mY));
+	Nm[2][1] = 2.0 * ((mY * mZ) + (mW * mX));
+	Nm[2][2] = 1.0 - 2.0 * (pow(mY, 2) + pow(mX, 2));
 	//Nm = m;
 	return Nm;
 	

@@ -40,7 +40,7 @@ int main(int argc, char** argv)
    glm::mat3 m;
    
    //m = glm::mat3(hand->getLocalTranslation());
-   //vec3 eulerXYZ = extractEulerAngleRO(XYZ, eulerAngleRO(XYZ,hand->getLocalTranslation()));
+   vec3 eulerXYZ = extractEulerAngleRO(XYZ, eulerAngleRO(XYZ,hand->getLocalTranslation()));
    std::cout << "The local rotation of the left hand on frame 5 is: " << glm::to_string(eulerXYZ) << std::endl;
 
    // What is the speed of the character?
